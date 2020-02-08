@@ -20,6 +20,17 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': { view: 'pages/homepage' },
+  'get /inventories': 'InventoryController.getAll',
+  'get /inventories/:id': 'InventoryController.getOne',
+  'post /inventories': 'InventoryController.create',
+  'put /inventories/:id': 'InventoryController.update',
+  'delete /inventories/:id': 'InventoryController.delete',
+
+  'get /orders': 'OrderController.getAll',
+  'get /orders/:id': 'OrderController.getOne',
+  'post /orders': 'OrderController.create',
+  'put /orders/:id': 'OrderController.update',
+  'delete /orders/:id': 'OrderController.delete',
 
 
   /***************************************************************************
