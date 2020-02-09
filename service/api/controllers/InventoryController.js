@@ -5,7 +5,7 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-Joi= require('@hapi/joi');
+const Joi= require('@hapi/joi');
 
 const schema = {
   create: Joi.object({
@@ -24,6 +24,12 @@ const schema = {
 
 }
 
+const isAdminUser = () => {
+  // function to check user authorization level
+  // admin user GETs deleted entries as well
+  return false
+}
+
 module.exports = {
   getAll: async (req, res) => {
     let result = isAdminUser() ? await Inventory.find() : await Inventory.find({deleted: false})
@@ -38,7 +44,7 @@ module.exports = {
     if (!_.isNumber(id)  || _.isNaN(id)) {
       return res.status(404).send({error: 'Invalid ID specified!'});
     }
-    let result = isAdminUser() ? await Inventory.findOne() : await Inventory.findOne({deleted: false})
+    let result = isAdminUser() ? await Inventory.findOne(id) : await Inventory.findOne({id, deleted: false})
     if (result===undefined){
       return res.status(404).send({error: 'Inventory Item not found!'})
     }
@@ -49,11 +55,11 @@ module.exports = {
     if(!isValidSchema(req.body, schema['create'], res)){
       return false
     }
-    let {name, description="", price, quantityAvailable} = req.body
+    let {name, description='', price, quantityAvailable} = req.body
     price=+price
     quantityAvailable=+quantityAvailable
     await Inventory.create({name, description, price, quantityAvailable})
-    res.status(201).send({message: "New Inventory Item Created!"})
+    res.status(201).send({message: 'New Inventory Item Created!'})
   },
 
   update: async (req, res) => {
@@ -107,10 +113,4 @@ function isValidSchema(value, schema, res){
     return false
   }
   return true
-}
-
-const isAdminUser = () => {
-  // function to check user authorization level
-  // admin user GETs deleted entries as well
-  return false
 }
