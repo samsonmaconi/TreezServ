@@ -87,7 +87,6 @@ module.exports = {
     let { orderItems, status = order.status } = req.body
     if (orderItems) {
       let oldOrderItems = order.orderItems
-      console.log('oldOrderItems :', oldOrderItems);
       await reverseInventory(oldOrderItems)
       await Order.replaceCollection(order.id, 'orderItems').members([])
 
@@ -99,7 +98,7 @@ module.exports = {
       await OrderItem.createEach(orderItems).fetch()
     }
 
-    await Order.update(id).set({ status }).fetch()
+    await Order.updateOne(id).set({ status })
 
     let updatedOrder = await Order.findOne(order.id).populate('orderItems')
     res.status(202).send({
@@ -116,12 +115,12 @@ module.exports = {
     let result = await Order.findOne({ id, status: { '!=': ['canceled', 'completed'] } }).populate('orderItems')
 
     if (result === undefined) {
-      res.status(404).send({ error: 'Order not valid for deletion!' })
+      res.status(404).send({ error: 'Order not valid for cancelation!' })
       return false
     }
 
     await reverseInventory(result.orderItems)
-    let deletedOrder = await Order.update(id).set({ status: 'canceled' }).fetch()
+    let deletedOrder = await Order.updateOne(id).set({ status: 'canceled' })
 
     res.status(202).send({
       message: `Order ${id} Deleted!`,
@@ -133,7 +132,6 @@ module.exports = {
 
 
 async function reverseInventory(orderItems) {
-  console.log('orderItems :', orderItems);
   let ids = []
   orderItems.forEach(e => ids.push(e.item))
   let result = await Inventory.find({ id: ids, deleted: false })

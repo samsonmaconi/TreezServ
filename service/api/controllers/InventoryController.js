@@ -58,8 +58,8 @@ module.exports = {
     let {name, description='', price, quantityAvailable} = req.body
     price=+price
     quantityAvailable=+quantityAvailable
-    await Inventory.create({name, description, price, quantityAvailable})
-    res.status(201).send({message: 'New Inventory Item Created!'})
+    let newItem = await Inventory.create({name, description, price, quantityAvailable}).fetch()
+    res.status(201).send({message: 'New Inventory Item Created!', item: newItem})
   },
 
   update: async (req, res) => {
@@ -83,8 +83,8 @@ module.exports = {
     } = req.body
     price=+price
     quantityAvailable=+quantityAvailable
-    await Inventory.update(id).set({name, description, price, quantityAvailable, deleted})
-    res.status(202).send({message: `Inventory Item ${id} Updated!`})
+    let updatedItem = await Inventory.updateOne(id).set({name, description, price, quantityAvailable, deleted})
+    res.status(202).send({message: `Inventory Item ${id} Updated!`, item: updatedItem})
   },
 
   delete: async (req, res) => {
@@ -96,7 +96,7 @@ module.exports = {
     if (result===undefined){
       return res.status(404).send({error: 'Inventory Item not found!'})
     }
-    let deletedRecord= await Inventory.update(id).set({deleted: true}).fetch()
+    let deletedRecord= await Inventory.updateOne(id).set({deleted: true})
     res.status(202).send({
       message: `Inventory Item ${id} Deleted!`,
       deletedItem: deletedRecord
