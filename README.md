@@ -30,11 +30,11 @@ Kindly review the [Postman Documentation](https://documenter.getpostman.com/view
 
 
 ## NOTE
-I made a compromise on the choice of **datastore**. I chose to use **sails-disk** (more ideal for Development env not Production) to allow easier evaluation setup as no extra DB setup is nessary. However, the datastore of your choice can be used by simply specifying the adapter and url of your database withing the <code>service/config/datastore.js</code> file by replacing the following block of code with your appropriate datastore parameters.    
+I made a compromise on the choice of **datastore**. I chose to use **sails-disk** (more ideal for Development env not Production) to allow easier evaluation setup as no extra DB setup is nessary. However, the datastore of your choice can be used by simply specifying the adapter and url of your database within the <code>service/config/datastore.js</code> file by replacing the following block of code with your appropriate datastore parameters.    
 ```javascript
     // adapter: 'sails-mysql',
     // url: 'mysql://user:password@host:port/database',
 ```
 
-The application could also benefit from detailed logging of all requests and responses to aid debugging process.
+The sercice could also benefit from detailed logging of all requests and responses to aid debugging process.
 
