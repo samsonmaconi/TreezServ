@@ -9,7 +9,7 @@ Treez service to model the current inventory, deducting from inventory as orders
 - **Framework Used**: sails.js
   - **ORM**: Waterline
   - **DB Storage**: sailsdisk
-- **Testing**: [Mocha](https://mochajs.org/), [supertest](https://github.com/visionmedia/supertest)  
+- **Testing**: [Mocha](https://mochajs.org/), [supertest (HTTP assertions)](https://github.com/visionmedia/supertest), [Joi (Schema Validation)](https://hapi.dev/family/joi/)  
 
 ## Installation Instructions
 - run <code>cd service</code> to navigate to the service root directory
