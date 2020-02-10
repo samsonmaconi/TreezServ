@@ -8,7 +8,7 @@ Kindly review the [Postman Documentation](https://documenter.getpostman.com/view
 ## Frameworks and Libraries
 - **Framework Used**: sails.js
   - **ORM**: Waterline
-  - **DB Storage**: sailsdisk
+  - **DB Storage**: sails-disk
 - **Testing**: [Mocha](https://mochajs.org/), [supertest (HTTP assertions)](https://github.com/visionmedia/supertest), [Joi (Schema Validation)](https://hapi.dev/family/joi/)  
 
 ## Installation Instructions
@@ -36,5 +36,5 @@ I made a compromise on the choice of **datastore**. I chose to use **sails-disk*
     // url: 'mysql://user:password@host:port/database',
 ```
 
-The sercice could also benefit from detailed logging of all requests and responses to aid debugging process.
+In addition to some minor code refactoring, the service could also benefit from detailed logging of all requests and responses to aid debugging process.
 
