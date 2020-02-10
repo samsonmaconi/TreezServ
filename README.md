@@ -19,4 +19,4 @@ Treez service to model the current inventory, deducting from inventory as orders
 - run <code>npm test</code> to execute the tests
 
 ## Server Startup Instructions
-- run <code>npm start</code> to start the server
+- run <code>npm start</code> to start the server at <code>http://localhost:1337</code>
